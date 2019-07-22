@@ -7,9 +7,8 @@ Vagrant.configure(2) do |config|
     master.vm.synced_folder ".", "/vagrant", type:"virtualbox"
     master.vm.network 'private_network', ip: "192.168.0.200",  virtualbox__intnet: true
     master.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", disabled: true
-    master.vm.network "forwarded_port", guest: 22, host: 2000
-    master.vm.network "forwarded_port", guest: 6443, host: 6443
-    master.vm.network "forwarded_port", guest: 8443, host: 8443
+    master.vm.network "forwarded_port", guest: 22, host: 2000 # SSH TO MASTER/NODE
+    master.vm.network "forwarded_port", guest: 6443, host: 6443 # ACCESS K8S API
     for p in 30000..30100 # PORTS DEFINED FOR K8S TYPE-NODE-PORT ACCESS
       master.vm.network "forwarded_port", guest: p, host: p, protocol: "tcp"
       end
